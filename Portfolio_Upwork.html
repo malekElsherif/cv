@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backend Developer Portfolio</title>
+<meta name="description" content="Backend developer building REST APIs with NestJS, TypeScript and PostgreSQL.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF2F4; --surface:#FFFFFF; --ink:#13232B; --muted:#52646D;
+  --line:#D3DCE1; --accent:#0B7A85; --accent-ink:#065860; --warm:#E3A23B;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Instrument Sans","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 1.0625rem/1.65 var(--body);-webkit-font-smoothing:antialiased}
+a{color:var(--accent-ink)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--warm);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+section{padding:72px 0}
+h1,h2,h3{font-family:var(--display);line-height:1.1;letter-spacing:-.02em}
+h2{font-size:clamp(1.7rem,3.4vw,2.3rem);margin-bottom:28px}
+p{max-width:64ch}
+
+nav{position:sticky;top:0;background:rgba(238,242,244,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:5}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;height:60px}
+nav strong{font-family:var(--display);font-size:1.1rem}
+nav ul{display:flex;gap:22px;list-style:none;padding:0}
+nav a{text-decoration:none;color:var(--muted);font-weight:500;font-size:.95rem}
+nav a:hover{color:var(--ink)}
+
+.hero{padding:88px 0 56px}
+.hero h1{font-size:clamp(2.6rem,7vw,5rem);font-weight:800;max-width:14ch}
+.hero p.lead{font-size:1.25rem;color:var(--muted);margin:22px 0 32px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:12px 22px;border-radius:8px;font-weight:600;text-decoration:none;border:2px solid var(--ink);color:var(--ink);background:transparent;font:600 1rem var(--body);cursor:pointer}
+.btn.primary{background:var(--ink);color:#fff}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* project */
+.browser{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 24px 48px -24px rgba(19,35,43,.35)}
+.bar{display:flex;align-items:center;gap:12px;padding:10px 14px;background:#E4EAED;border-bottom:1px solid var(--line)}
+.dots{display:flex;gap:6px}.dots i{width:11px;height:11px;border-radius:50%;background:#B9C5CB}
+.url{flex:1;background:#fff;border-radius:6px;padding:4px 12px;font-size:.85rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.toggle{display:flex;gap:4px}
+.toggle button{border:1px solid var(--line);background:#fff;border-radius:6px;padding:3px 10px;font:500 .8rem var(--body);cursor:pointer;color:var(--muted)}
+.toggle button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.stage{background:#D9E1E5;display:flex;justify-content:center}
+.stage iframe{width:100%;max-width:100%;height:600px;border:0;background:#fff;transition:max-width .25s ease}
+.stage.mobile iframe{max-width:390px}
+.note{font-size:.9rem;color:var(--muted);margin-top:12px}
+
+.cols{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;margin-top:48px}
+.cols h3{font-size:1.25rem;margin-bottom:14px}
+.cols ul{padding-left:1.1rem}.cols li{margin-bottom:10px}
+.roles{display:grid;gap:10px}
+.role{display:flex;justify-content:space-between;gap:12px;padding:12px 16px;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+.role b{font-weight:600}.role span{color:var(--muted);font-size:.92rem}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tags span{padding:4px 12px;border-radius:999px;background:#DCEBED;color:var(--accent-ink);font-size:.9rem;font-weight:500}
+
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.skill{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px}
+.skill h3{font-size:1.05rem;margin-bottom:8px}
+.skill p{font-size:.97rem;color:var(--muted)}
+
+.timeline{list-style:none;padding:0;border-left:3px solid var(--accent);margin-left:6px}
+.timeline li{padding:0 0 22px 22px;position:relative}
+.timeline li::before{content:"";position:absolute;left:-9px;top:8px;width:15px;height:15px;border-radius:50%;background:var(--bg);border:3px solid var(--accent)}
+.timeline b{font-family:var(--display);font-size:1.1rem}
+.timeline span{display:block;color:var(--muted);font-size:.95rem}
+
+#contact{background:var(--ink);color:#fff}
+#contact p{color:#C3D0D6}
+#contact a{color:#fff}
+#contact .btn{border-color:#fff;color:#fff}
+#contact .btn.primary{background:#fff;color:var(--ink)}
+#contact .btn:hover{background:var(--warm);border-color:var(--warm);color:var(--ink)}
+footer{padding:24px 0;text-align:center;color:var(--muted);font-size:.9rem}
+
+@media (max-width:760px){
+  nav ul{gap:14px}
+  .cols{grid-template-columns:1fr;gap:32px}
+  .stage iframe{height:480px}
+  section{padding:56px 0}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.stage iframe{transition:none}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <strong>Backend Developer</strong>
+  <ul>
+    <li><a href="#project">Project</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Hire me</a></li>
+  </ul>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <h1>I build the backend that apps run on.</h1>
+  <p class="lead">Backend developer. I design REST APIs, authentication and real-time features with NestJS, TypeScript and PostgreSQL, then ship them in Docker. I’m available for freelance backend projects.</p>
+  <div class="btns">
+    <a class="btn primary" href="#project">See my project</a>
+    <a class="btn" href="#contact">Work with me</a>
+  </div>
+</div></header>
+
+<section id="project"><div class="wrap">
+  <h2>Real Estate Management Platform</h2>
+  <div class="browser">
+    <div class="bar">
+      <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="url">real-estate-react-fawn-six.vercel.app</div>
+      <div class="toggle" role="group" aria-label="Preview size">
+        <button type="button" id="bDesk" aria-pressed="true">Desktop</button>
+        <button type="button" id="bMob" aria-pressed="false">Mobile</button>
+      </div>
+    </div>
+    <div class="stage" id="stage">
+      <iframe src="https://real-estate-react-fawn-six.vercel.app" title="Live preview of the Real Estate Management Platform" loading="lazy" referrerpolicy="no-referrer"></iframe>
+    </div>
+  </div>
+  <p class="note">This is the live app. If the preview stays blank, your browser or host is blocking embeds, so <a href="https://real-estate-react-fawn-six.vercel.app" target="_blank" rel="noopener">open it in a new tab</a>. The first load can take a few seconds while the server wakes up.</p>
+
+  <div class="cols">
+    <div>
+      <h3>What it does</h3>
+      <p>A platform for property sale and rental listings. Users browse and filter listings, agents publish and manage them, and admins approve what goes live. I built the backend and a lightweight React client on top of it.</p>
+      <ul style="margin-top:16px">
+        <li>REST API with NestJS and TypeORM on PostgreSQL: create, edit and filter listings, plus an admin approval workflow.</li>
+        <li>JWT authentication and role-based access control for three roles: User, Agent and Admin.</li>
+        <li>Real-time chat over WebSockets.</li>
+        <li>Agent and admin dashboards to manage properties and user requests.</li>
+        <li>Containerized with Docker and deployed on Railway.</li>
+      </ul>
+      <div class="btns" style="margin-top:24px">
+        <a class="btn primary" href="https://real-estate-react-fawn-six.vercel.app" target="_blank" rel="noopener">Open live demo</a>
+      </div>
+    </div>
+    <div>
+      <h3>Roles in the system</h3>
+      <div class="roles">
+        <div class="role"><b>User</b><span>Browse, filter, chat</span></div>
+        <div class="role"><b>Agent</b><span>Create and manage listings</span></div>
+        <div class="role"><b>Admin</b><span>Approve listings, manage requests</span></div>
+      </div>
+      <div class="tags" aria-label="Technologies used">
+        <span>NestJS</span><span>TypeScript</span><span>PostgreSQL</span><span>TypeORM</span><span>WebSockets</span><span>JWT</span><span>Docker</span><span>React</span>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section id="skills"><div class="wrap">
+  <h2>Skills</h2>
+  <div class="skills">
+    <div class="skill"><h3>Backend</h3><p>Node.js, NestJS, Express.js, REST APIs, JWT, WebSockets</p></div>
+    <div class="skill"><h3>Languages</h3><p>JavaScript, TypeScript, SQL</p></div>
+    <div class="skill"><h3>Databases</h3><p>PostgreSQL, MySQL, TypeORM</p></div>
+    <div class="skill"><h3>Tools and deployment</h3><p>Git, GitHub, Docker, Docker Compose, Railway, Linux</p></div>
+    <div class="skill"><h3>Frontend basics</h3><p>React, React Query, React Hook Form, Tailwind CSS, Material UI, Axios</p></div>
+  </div>
+</div></section>
+
+<section id="education"><div class="wrap">
+  <h2>Education and training</h2>
+  <ul class="timeline">
+    <li><b>B.Sc. in Software Engineering</b><span>Faculty of Computer and Information Sciences, 2024</span></li>
+    <li><b>Machine Learning Training, DEPI</b><span>2024 · Supervised and unsupervised learning, team projects</span></li>
+    <li><b>Back-End Development (PHP / Laravel), ITI</b><span>2023 · Built and documented APIs, optimized backend code</span></li>
+    <li><b>Frontend Testing, Udacity</b><span>2022 · Test cases for React apps, cross-browser bug reports</span></li>
+    <li><b>Frontend Development (React), University course</b><span>2022 · Built interactive UIs as part of a team</span></li>
+  </ul>
+  <p style="margin-top:8px;color:var(--muted)">Languages: Arabic (native), English (professional working proficiency).</p>
+</div></section>
+
+<section id="contact"><div class="wrap">
+  <h2>Let’s work together</h2>
+  <p>I’m open to backend and API development projects. Send me a message here on Upwork and I’ll reply quickly.</p>
+</div></section>
+
+<footer>© <span id="yr">2026</span> Backend Developer Portfolio</footer>
+
+<script>
+(function(){
+  var stage=document.getElementById('stage'),d=document.getElementById('bDesk'),m=document.getElementById('bMob');
+  function set(mobile){
+    stage.classList.toggle('mobile',mobile);
+    d.setAttribute('aria-pressed',String(!mobile));
+    m.setAttribute('aria-pressed',String(mobile));
+  }
+  d.addEventListener('click',function(){set(false)});
+  m.addEventListener('click',function(){set(true)});
+  document.getElementById('yr').textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
